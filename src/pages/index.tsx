@@ -15,7 +15,10 @@ export default function Home() {
       </Head>
       <Header/>
       <main className='mx-4'>
-        <h1 className='text-3xl font-bold underline'>Bem Vindo</h1>
+        <div className='flex flex-col items-center justify-center mt-4'>
+          <h1 className='text-3xl font-bold underline mb-4'>SARA TECH</h1>
+          <p>Sistemas de Automação Residencial e Agrícola</p>
+        </div>
       </main>
     </>
   )

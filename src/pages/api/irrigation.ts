@@ -10,7 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         })
     }
     
-    let client;
+    let client: { on: (arg0: string, arg1: { (): void; (topic: any, message: any): void; }) => void; subscribe: (arg0: string, arg1: (err: any) => void) => void; publish: (arg0: string, arg1: any) => void; end: () => void; };
+
     const options = {
         host: process.env.NEXTJS_HOST,
         port: process.env.NEXTJS_PORT,
@@ -24,7 +25,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     try {
         client = mqtt.connect(options);
 
-        client.publish('irrigation', status);
+        client.on('connect', function () {
+            console.log('Connected');
+            // Subscribe to a topic
+            client.subscribe('irrigation', function (err) {
+                console.log('Subscribe irrigation');
+                
+                if (err) {
+                    return res.status(500).json({
+                        sucess: false,
+                        data: err,
+                    });
+                }
+                
+                client.publish('irrigation', status);
+                console.log('Publish ', status);
+            })
+          })
+
+          return res.status(200).json({
+            sucess: true,
+            data: status,
+          })
     } catch(e) {
         console.log(e);
         return res.status(500).json({
@@ -32,23 +54,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             data: {},
         })
     }
-  
-    // setup the callbacks
-    client.on('connect', function () {
-        console.log('Connected');
-    });
-  
-    client.on('error', function (error: any) {
-        console.log(error);
-    });
-  
-    client.on('message', function (topic: any, message: { toString: () => any; }) {
-        // called each time a message is received
-        console.log('Received message:', topic, message.toString());
-    });
-
-    return res.status(200).json({
-        sucess: true,
-        data: status,
-    })
 }
