@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <Header/>
       <main className='mx-4'>
-        <h1 className='text-3xl font-bold underline'>Hello World!</h1>
+        <h1 className='text-3xl font-bold underline'>Bem Vindo</h1>
       </main>
     </>
   )
