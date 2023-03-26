@@ -9,8 +9,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             error: `Invalid request type! Expected 'GET', got '${requestMethod.toUpperCase()}'.`
         })
     }
-    
-    let client: { on: (arg0: string, arg1: { (): void; (topic: any, message: any): void; }) => void; subscribe: (arg0: string, arg1: (err: any) => void) => void; publish: (arg0: string, arg1: any) => void; end: () => void; };
 
     const host = process.env.NEXTJS_HOST;
     const port = process.env.NEXTJS_PORT;
@@ -27,37 +25,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     const {status}: any = req.query;
+
+    let sub = false;
+    let pub = false;
     
     try {
-        client = mqtt.connect(options);
-
+        const client = mqtt.connect(options);
+        
         client.on('connect', function () {
             console.log('Connected');
             // Subscribe to a topic
-            client.subscribe('irrigation', function (err) {
-                console.log('Subscribe irrigation');
-                
-                if (err) {
-                    return res.status(500).json({
-                        sucess: false,
-                        data: err,
-                    });
-                }
+            client.subscribe('irrigation', () => {
+                console.log('Subscribed');
+                sub = true;
                 
                 client.publish('irrigation', status);
-                console.log('Publish ', status);
-            })
-          })
+                console.log('Published');
+                pub = true;
 
-          return res.status(200).json({
-            sucess: true,
-            data: {status, port, protocol},
-          })
-    } catch(e) {
-        console.log(e);
+                return res.status(200).json({
+                    sucess: true,
+                    data: {topic: 'irrigation', message: status, infos: {sub, pub}},
+                })
+            })
+        })
+        
+    } catch(err: any) {
+        console.log(err);
         return res.status(500).json({
             sucess: false,
-            data: {},
+            data: {err},
         })
     }
 }
