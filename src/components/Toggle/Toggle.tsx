@@ -1,6 +1,8 @@
 import React from 'react'
 
-const Toggle = ({label, target, setTarget, disabled}) => {
+const Toggle = (props: any) => {
+    const {label, target, setTarget, disabled} = props;
+    
     const handle = () => {
         if (disabled) return;
         setTarget(!target)
