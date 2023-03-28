@@ -1,19 +1,25 @@
 import Header from "@/components/Header/Header";
 import Toggle from "@/components/Toggle/Toggle";
 import Head from "next/head";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 export default function Plant() {
     const [automatic, setAutomatic] = useState(true);
     const [irrigation, setIrrigation] = useState(false);
 
-    useEffect(() => {
-        // fetch(`/api/irrigation?status=${irrigation}`).then((res) => res.json());
-    }, [irrigation]);
+    const handleIrrigation = () => {
+        setIrrigation((prevValue) => !prevValue);
 
-    useEffect(() => {
-        if(!automatic) return;
-    }, [automatic]);
+        // fetch(`/api/irrigation?status=${irrigation}`).then((res) => res.json());
+    };
+
+    const handleAutomatic = () => {
+        console.log(automatic);
+        setAutomatic(!automatic);
+        console.log(automatic);
+
+        // fetch(`/api/automatic?status=${automatic}`).then((res) => res.json());
+    };
 
     return (
         <>
@@ -25,9 +31,9 @@ export default function Plant() {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <Toggle label={'Automático'} target={automatic} setTarget={setAutomatic} disabled={false}/>
+                <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/>
 
-                <Toggle label={'Irrigação'} target={irrigation} setTarget={setIrrigation} disabled={automatic}/>
+                <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={automatic}/>
             </main>
         </>
     )

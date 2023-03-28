@@ -35,17 +35,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         client.on('connect', function () {
             console.log('Connected');
             // Subscribe to a topic
-            client.subscribe('irrigation', () => {
+            client.subscribe('automatic', () => {
                 console.log('Subscribed');
                 sub = true;
                 
-                client.publish('irrigation', status);
+                client.publish('automatic', status);
                 console.log('Published');
                 pub = true;
 
                 return res.status(200).json({
                     sucess: true,
-                    data: {topic: 'irrigation', message: status, infos: {sub, pub}},
+                    data: {topic: 'automatic', message: status, infos: {sub, pub}},
                 })
             })
         })
