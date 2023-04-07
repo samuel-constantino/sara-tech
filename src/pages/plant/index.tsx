@@ -8,9 +8,11 @@ export default function Plant() {
     const [irrigation, setIrrigation] = useState(false);
 
     const handleIrrigation = () => {
-        setIrrigation((prevValue) => !prevValue);
+        setIrrigation((prevState) => (!prevState));
 
-        // fetch(`/api/irrigation?status=${irrigation}`).then((res) => res.json());
+        const payload = !irrigation ? "1" : "0";
+
+        fetch(`/api/irrigation?status=${payload}`).then((res) => res.json());
     };
 
     const handleAutomatic = () => {
@@ -31,9 +33,9 @@ export default function Plant() {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/>
+                {/* <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/> */}
 
-                <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={automatic}/>
+                <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={false}/>
             </main>
         </>
     )
