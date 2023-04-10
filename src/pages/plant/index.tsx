@@ -2,10 +2,23 @@ import Header from "@/components/Header/Header";
 import Toggle from "@/components/Toggle/Toggle";
 import Head from "next/head";
 import React, { useState } from "react";
+import Environment from "../environment";
 
-export default function Plant() {
+type Props = {
+    environments: [Environment]
+}
+  
+type Environment = {
+    _id: String;
+    temperature: String;
+    moisture: String;
+    date: String;
+}
+
+export default function Plant(props: Props) {
     const [automatic, setAutomatic] = useState(true);
     const [irrigation, setIrrigation] = useState(false);
+    const [environments, setEnvironments] = useState(props.environments);
 
     const handleIrrigation = () => {
         setIrrigation((prevValue) => !prevValue);
@@ -34,7 +47,22 @@ export default function Plant() {
                 <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/>
 
                 <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={automatic}/>
+                <ul>
+                    {environments.map((env) => (<li>{env.temperature} | {env.moisture} | {env.date}</li>))}
+                </ul>
             </main>
         </>
     )
+}
+
+export async function getServerSideProps() {
+    try {
+        let response = await fetch('http://localhost:3000/api/environments');
+        let environments = await response.json();
+        return {
+            props: { environments: JSON.parse(JSON.stringify(environments)) },
+        };
+    } catch (e) {
+        console.error(e);
+    }
 }
