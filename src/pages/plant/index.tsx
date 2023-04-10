@@ -50,7 +50,14 @@ export default function Plant(props: Props) {
 
                 <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={automatic}/>
                 <ul>
-                    {environments.map((env) => (<li>{env.temperature} | {env.moisture} | {env.date}</li>))}
+                    {environments.map((env) => (
+                        <li className="flex gap-4">
+                            <span>Temperatura: {env.temperature}</span>
+                            <span>Umidade: {env.moisture}</span>
+                            <span>Data: {env.date.substring(0, 10)}</span>
+                            <span>Hora: {env.date.substring(11, 19)}</span>
+                        </li>
+                    ))}
                 </ul>
             </main>
         </>
