@@ -21,9 +21,11 @@ export default function Plant(props: Props) {
     const [environments, setEnvironments] = useState(props.environments);
 
     const handleIrrigation = () => {
-        setIrrigation((prevValue) => !prevValue);
+        setIrrigation((prevState) => (!prevState));
 
-        // fetch(`/api/irrigation?status=${irrigation}`).then((res) => res.json());
+        const payload = !irrigation ? "1" : "0";
+
+        fetch(`/api/irrigation?status=${payload}`).then((res) => res.json());
     };
 
     const handleAutomatic = () => {
@@ -44,7 +46,7 @@ export default function Plant(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/>
+                {/* <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/> */}
 
                 <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={automatic}/>
                 <ul>
