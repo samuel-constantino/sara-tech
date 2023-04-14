@@ -50,8 +50,20 @@ export default function Environment(props: Props) {
     const data = {
         labels: labels,
         datasets: [
-            { data: temperatures },
-            { data: moistures }
+            {
+                label: 'Temperatura',
+                data: temperatures,
+                fill: false,
+                backgroundColor: "rgba(47, 97, 68, 0.3)",
+                borderColor: 'rgba(47, 97, 68, 1)',
+            },
+            {
+                label: 'Umidade',
+                data: moistures,
+                fill: false,
+                backgroundColor: "rgba(78, 180, 238, 0.8)",
+                borderColor: 'rgba(39, 170, 245, 0.8)',
+            },
         ]
     };
 
@@ -62,18 +74,19 @@ export default function Environment(props: Props) {
     });
 
     const options = {
-        plugins: {
-            legend: {
-                display: false,
-            },
+        legend: {
+            display: true,
+            position: 'bottom',
+        },
+        title: {
+            display: true,
+            text: 'Gráfico de Ambiente',
         },
         elements: {
             line: {
                 tension: 0,
                 borderWidth: 2,
-                borderColor: "rgba(47, 97, 68, 1)",
                 fill: "start",
-                backgroundColor: "rgba(47, 97, 68, 0.3)"
             },
             point: {
                 radius: 0,
@@ -81,12 +94,20 @@ export default function Environment(props: Props) {
             },
         },
         scales: {
-            xAxis: {
-                display: false,
-            },
-            yAxis: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false,
+              },
+              display: false,
+            }],
+            xAxes: [{
+              ticks: {
                 display: true,
-            },
+              },
+              gridLines: {
+                display: false,
+              },
+            }],
         },
     };
 
