@@ -9,6 +9,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         let data: string[] = [];
 
         if(environments) {
+            // data = await db.collection('environments').find({}).limit(24).toArray();
+
             const date = new Date();
             
             let month = ""+(date.getMonth() + 1);
@@ -28,6 +30,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         return res.status(200).json(data);
     } catch (e) {
-        console.error(e);
+        return res.status(500).json([]);
     }
 }
