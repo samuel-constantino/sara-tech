@@ -139,7 +139,9 @@ export default function Environment(props: Props) {
 
 export async function getServerSideProps() {
     try {
+        console.log('antes');
         const { data } = await api.get((`/api/environments`));
+        console.log('depois');
 
         return {
             props: { environments: JSON.parse(JSON.stringify(data))},
