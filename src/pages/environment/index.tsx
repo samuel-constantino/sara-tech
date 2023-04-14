@@ -40,6 +40,8 @@ type Environment = {
     time: String;
 }
 
+type Options = {};
+
 export default function Environment(props: Props) {
     const { environments } = props;
     
@@ -73,7 +75,7 @@ export default function Environment(props: Props) {
         data.datasets[1].data.push(""+moisture);
     });
 
-    const options = {
+    const options: Options = {
         legend: {
             display: true,
             position: 'bottom',
@@ -109,6 +111,14 @@ export default function Environment(props: Props) {
               },
             }],
         },
+        // scales: {
+        //     yAxes: {
+        //         display: false,
+        //     },
+        //     xAxes: {
+        //         display: false,
+        //     }
+        // },
     };
 
     return (

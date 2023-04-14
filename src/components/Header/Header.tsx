@@ -19,7 +19,7 @@ const Header = () => {
             <div className="relative bg-black text-white h-24">
                 <div className="container mx-auto max-w-content overflow-hidden flex items-center justify-between px-4 smd:px-6 xl:px-6 xl2xl:px-4 py-4 md:space-x-10">
                     {links.map((link, index) => (
-                        <Link key={index} href={link.href} className="text-18px font-medium">
+                        <Link key={index} href={""+link.href} className="text-18px font-medium">
                             {link.label}
                         </Link>
                     ))}
