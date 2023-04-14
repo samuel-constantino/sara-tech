@@ -1,7 +1,32 @@
 import Header from "@/components/Header/Header";
 import { api } from "@/services"
 import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
+
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler
+} from "chart.js"
+
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Title,
+    Tooltip,
+    Legend
+)
 
 type Props = {
     environments: [Environment],
@@ -12,10 +37,58 @@ type Environment = {
     temperature: String;
     moisture: String;
     date: String;
+    time: String;
 }
 
 export default function Environment(props: Props) {
     const { environments } = props;
+    
+    const labels: string[] = [];
+    const temperatures: string[] = [];
+    const moistures: string[] = [];
+
+    const data = {
+        labels: labels,
+        datasets: [
+            { data: temperatures },
+            { data: moistures }
+        ]
+    };
+
+    environments.forEach(({time, temperature, moisture}) => {
+        data.labels.push(""+time);
+        data.datasets[0].data.push(""+temperature);
+        data.datasets[1].data.push(""+moisture);
+    });
+
+    const options = {
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+        elements: {
+            line: {
+                tension: 0,
+                borderWidth: 2,
+                borderColor: "rgba(47, 97, 68, 1)",
+                fill: "start",
+                backgroundColor: "rgba(47, 97, 68, 0.3)"
+            },
+            point: {
+                radius: 0,
+                hitRadius: 0,
+            },
+        },
+        scales: {
+            xAxis: {
+                display: false,
+            },
+            yAxis: {
+                display: true,
+            },
+        },
+    };
 
     return (
         <>
@@ -27,16 +100,7 @@ export default function Environment(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <ul>
-                    {environments.map((env) => (
-                        <li className="flex gap-4">
-                            <span>Temperatura: {env.temperature}</span>
-                            <span>Umidade: {env.moisture}</span>
-                            <span>Data: {env.date.substring(0, 10)}</span>
-                            <span>Hora: {env.date.substring(11, 19)}</span>
-                        </li>
-                    ))}
-                </ul>
+                <Line data={data} width={100} height={40} options={options} />
             </main>
         </>
     )
