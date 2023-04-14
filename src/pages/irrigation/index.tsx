@@ -3,7 +3,7 @@ import Toggle from "@/components/Toggle/Toggle";
 import Head from "next/head";
 import React, { useState } from "react";
 
-export default function Plant() {
+export default function Irrigation() {
     const [automatic, setAutomatic] = useState(true);
     const [irrigation, setIrrigation] = useState(false);
 
@@ -35,7 +35,7 @@ export default function Plant() {
             <main className='m-4 flex flex-col gap-4'>
                 {/* <Toggle label={'Automático'} target={automatic} setTarget={handleAutomatic} disabled={false}/> */}
 
-                <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={false}/>
+                <Toggle label={'Irrigação'} target={irrigation} setTarget={handleIrrigation} disabled={automatic}/>
             </main>
         </>
     )
