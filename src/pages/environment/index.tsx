@@ -28,19 +28,17 @@ ChartJS.register(
     Legend
 )
 
+type Environment = {
+  _id: String;
+  temperature: String;
+  moisture: String;
+  date: String;
+  time: String;
+}
+
 type Props = {
     environments: [Environment],
 }
-  
-type Environment = {
-    _id: String;
-    temperature: String;
-    moisture: String;
-    date: String;
-    time: String;
-}
-
-type Options = {};
 
 export default function Environment(props: Props) {
     const { environments } = props;
@@ -75,52 +73,6 @@ export default function Environment(props: Props) {
         data.datasets[1].data.push(""+moisture);
     });
 
-    const options: Options = {
-        legend: {
-            display: true,
-            position: 'bottom',
-        },
-        title: {
-            display: true,
-            text: 'Gráfico de Ambiente',
-        },
-        elements: {
-            line: {
-                tension: 0,
-                borderWidth: 2,
-                fill: "start",
-            },
-            point: {
-                radius: 0,
-                hitRadius: 0,
-            },
-        },
-        scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false,
-              },
-              display: false,
-            }],
-            xAxes: [{
-              ticks: {
-                display: true,
-              },
-              gridLines: {
-                display: false,
-              },
-            }],
-        },
-        // scales: {
-        //     yAxes: {
-        //         display: false,
-        //     },
-        //     xAxes: {
-        //         display: false,
-        //     }
-        // },
-    };
-
     return (
         <>
             <Head>
@@ -131,7 +83,7 @@ export default function Environment(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <Line data={data} width={100} height={40} options={options} />
+                <Line data={data} options={{ maintainAspectRatio: false }} />
             </main>
         </>
     )
