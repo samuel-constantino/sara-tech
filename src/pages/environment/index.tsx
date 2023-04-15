@@ -150,7 +150,8 @@ export default function Environment(props: Props) {
 
 export async function getServerSideProps() {
     try {
-        const { data } = await api.get((`/api/environments`));
+        const date = "2023-04-14";
+        const { data } = await api.get((`/api/environments?date=${date}`));
 
         return {
             props: { environments: JSON.parse(JSON.stringify(data))},
