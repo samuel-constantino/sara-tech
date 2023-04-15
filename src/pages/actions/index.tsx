@@ -85,13 +85,12 @@ export default function Environment(props: Props) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     try {
         const { data } = await api.get((`/api/actions`));
 
         return {
-            props: { action: data},
-            revalidate: 1
+            props: { action: data}
         };
     } catch (e) {
         console.error(e);
