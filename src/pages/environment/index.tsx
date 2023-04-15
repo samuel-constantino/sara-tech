@@ -103,7 +103,7 @@ export default function Environment(props: Props) {
                         <span>{temperature} ºC</span>
                     </div>
                     <div>
-                        <Line data={dataTemperature} options={{ maintainAspectRatio: false }} />
+                        <Line height={190} data={dataTemperature} options={{ maintainAspectRatio: false }} />
                     </div>
                 </div>
                 <div>
@@ -112,7 +112,7 @@ export default function Environment(props: Props) {
                         <span>{moisture}%</span>
                     </div>
                     <div>
-                        <Line data={dataMoisture} options={{ maintainAspectRatio: false }} />
+                        <Line height={190} data={dataMoisture} options={{ maintainAspectRatio: false }} />
                     </div>
                 </div>
             </main>
