@@ -8,7 +8,7 @@ function TimeInput(props: Props) {
     const {defaultValue} = props;
     return (
         <div>
-            <label htmlFor="time-input">Hora:</label>
+            <label htmlFor="time-input"></label>
             <input type="time" id="time-input" name="time-input" defaultValue={defaultValue}/>
         </div>
     );

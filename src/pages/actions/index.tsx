@@ -72,7 +72,7 @@ export default function Environment(props: Props) {
                             setTarget={handleAction1}
                             disabled={false}
                         />
-                        <div className="flex gap-2">
+                        <div className="w-100 flex justify-between gap-2">
                             <TimeInput defaultValue={action.action1.time1} />
                             <TimeInput defaultValue={action.action1.time2}/>
                             <TimeInput defaultValue={action.action1.time3}/>
