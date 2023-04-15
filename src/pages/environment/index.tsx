@@ -120,14 +120,12 @@ export default function Environment(props: Props) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     try {
-        const date = "2023-04-14";
-        const { data } = await api.get((`/api/environments?date=${date}`));
+        const { data } = await api.get((`/api/environments`));
 
         return {
             props: { environments: JSON.parse(JSON.stringify(data))},
-            revalidate: 60
         };
     } catch (e) {
         console.error(e);
