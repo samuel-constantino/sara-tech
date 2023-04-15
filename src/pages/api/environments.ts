@@ -14,11 +14,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             let month = ""+(date.getMonth() + 1);
             month = +month < 10 ? "0"+month : ""+month;
 
-            // let day = ""+date.getDate();
-            // day = +day < 10 ? "0"+day : ""+day;
+            let day = ""+date.getDate();
+            day = +day < 10 ? "0"+day : ""+day;
 
             // const currentDate = date.getFullYear()+"-"+month+"-"+day;
-            const currentDate = `${date.getFullYear()}-${month}-14`;
+            const currentDate = `${date.getFullYear()}-${month}-${day}`;
 
             data = await db.collection('environments').find({
                 date: {
