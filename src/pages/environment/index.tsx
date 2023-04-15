@@ -111,7 +111,9 @@ export default function Environment(props: Props) {
         dataMoisture.datasets[0].data.push(""+moisture);
     });
 
-    const currentEnvironment = environments[environments.length-1] || "";
+    const currentEnvironment = environments[0];
+    const temperature = currentEnvironment ? currentEnvironment.temperature : "";
+    const moisture = currentEnvironment ? currentEnvironment.moisture : "";
 
     return (
         <>
@@ -126,7 +128,7 @@ export default function Environment(props: Props) {
                 <div>
                     <div className="flex gap-2">
                         <span>Temperatura:</span>
-                        <span>{currentEnvironment.temperature} ºC</span>
+                        <span>{temperature} ºC</span>
                     </div>
                     <div>
                         <Line data={dataTemperature} options={{ maintainAspectRatio: false }} />
@@ -135,7 +137,7 @@ export default function Environment(props: Props) {
                 <div>
                     <div className="flex gap-2">
                         <span>Umidade:</span>
-                        <span>{currentEnvironment.moisture}%</span>
+                        <span>{moisture}%</span>
                     </div>
                     <div>
                         <Line data={dataMoisture} options={{ maintainAspectRatio: false }} />
