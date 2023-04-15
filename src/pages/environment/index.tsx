@@ -47,7 +47,35 @@ export default function Environment(props: Props) {
     const temperatures: string[] = [];
     const moistures: string[] = [];
 
-    const data = {
+    // const data = {
+    //     labels: labels,
+    //     datasets: [
+    //         {
+    //             label: 'Temperatura',
+    //             data: temperatures,
+    //             fill: false,
+    //             backgroundColor: "rgba(47, 97, 68, 0.3)",
+    //             borderColor: 'rgba(47, 97, 68, 1)',
+    //         },
+    //         {
+    //             label: 'Umidade',
+    //             data: moistures,
+    //             fill: false,
+    //             backgroundColor: "rgba(78, 180, 238, 0.8)",
+    //             borderColor: 'rgba(39, 170, 245, 0.8)',
+    //         },
+    //     ]
+    // };
+    
+    // environments.forEach(({time, temperature, moisture}) => {
+
+    //     let timeData = ""+time[0]+""+time[1];
+    //     data.labels.push(timeData);
+    //     data.datasets[0].data.push(""+temperature);
+    //     data.datasets[1].data.push(""+moisture);
+    // });
+
+    const dataTemperature = {
         labels: labels,
         datasets: [
             {
@@ -56,7 +84,13 @@ export default function Environment(props: Props) {
                 fill: false,
                 backgroundColor: "rgba(47, 97, 68, 0.3)",
                 borderColor: 'rgba(47, 97, 68, 1)',
-            },
+            }
+        ]
+    };
+
+    const dataMoisture = {
+        labels: labels,
+        datasets: [
             {
                 label: 'Umidade',
                 data: moistures,
@@ -66,16 +100,18 @@ export default function Environment(props: Props) {
             },
         ]
     };
-
-    let currentEnvironment = environments[environments.length-1];
-    console.log(currentEnvironment);
+    
     environments.forEach(({time, temperature, moisture}) => {
 
         let timeData = ""+time[0]+""+time[1];
-        data.labels.push(timeData);
-        data.datasets[0].data.push(""+temperature);
-        data.datasets[1].data.push(""+moisture);
+
+        dataMoisture.labels.push(timeData);
+        
+        dataTemperature.datasets[0].data.push(""+temperature);
+        dataMoisture.datasets[0].data.push(""+moisture);
     });
+
+    const currentEnvironment = environments[environments.length-1];
 
     return (
         <>
@@ -87,16 +123,23 @@ export default function Environment(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <div className="flex gap-2">
-                    <span>Temperatura:</span>
-                    <span>{currentEnvironment.temperature}ºC</span>
-                </div>
-                <div className="flex gap-2">
-                    <span>Umidade:</span>
-                    <span>{currentEnvironment.moisture}ºC</span>
+                <div>
+                    <div className="flex gap-2">
+                        <span>Temperatura:</span>
+                        <span>{currentEnvironment.temperature} ºC</span>
+                    </div>
+                    <div>
+                        <Line data={dataTemperature} options={{ maintainAspectRatio: false }} />
+                    </div>
                 </div>
                 <div>
-                    <Line data={data} options={{ maintainAspectRatio: false }} />
+                    <div className="flex gap-2">
+                        <span>Umidade:</span>
+                        <span>{currentEnvironment.moisture}%</span>
+                    </div>
+                    <div>
+                        <Line data={dataMoisture} options={{ maintainAspectRatio: false }} />
+                    </div>
                 </div>
             </main>
         </>
