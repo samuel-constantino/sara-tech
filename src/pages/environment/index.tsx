@@ -42,7 +42,7 @@ type Props = {
 
 export default function Environment(props: Props) {
     const { environments } = props;
-    
+    console.log(environments);
     const labels: string[] = [];
     const temperatures: string[] = [];
     const moistures: string[] = [];
