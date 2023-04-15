@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         let data: string[] = [];
 
         if(environments) {
-            // const date = new Date();
+            const date = new Date();
             
             // let month = ""+(date.getMonth() + 1);
             // month = +month < 10 ? "0"+month : ""+month;
@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             // day = +day < 10 ? "0"+day : ""+day;
 
             // const currentDate = date.getFullYear()+"-"+month+"-"+day;
-            const currentDate = "2023-04-14";
+            const currentDate = `${date.getFullYear()}-04-14`;
 
             data = await db.collection('environments').find({
                 date: {
