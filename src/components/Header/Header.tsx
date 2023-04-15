@@ -8,7 +8,7 @@ interface link {
 
 const links: link[] = [
     {label: "SARA Tech", href: "/"},
-    {label: "Irrigação", href: "/irrigation"},
+    {label: "Motores", href: "/actions"},
     {label: "Ambiente", href: "/environment"},
 ];
 
