@@ -42,38 +42,10 @@ type Props = {
 
 export default function Environment(props: Props) {
     const { environments } = props;
-    console.log(environments);
+    
     const labels: string[] = [];
     const temperatures: string[] = [];
     const moistures: string[] = [];
-
-    // const data = {
-    //     labels: labels,
-    //     datasets: [
-    //         {
-    //             label: 'Temperatura',
-    //             data: temperatures,
-    //             fill: false,
-    //             backgroundColor: "rgba(47, 97, 68, 0.3)",
-    //             borderColor: 'rgba(47, 97, 68, 1)',
-    //         },
-    //         {
-    //             label: 'Umidade',
-    //             data: moistures,
-    //             fill: false,
-    //             backgroundColor: "rgba(78, 180, 238, 0.8)",
-    //             borderColor: 'rgba(39, 170, 245, 0.8)',
-    //         },
-    //     ]
-    // };
-    
-    // environments.forEach(({time, temperature, moisture}) => {
-
-    //     let timeData = ""+time[0]+""+time[1];
-    //     data.labels.push(timeData);
-    //     data.datasets[0].data.push(""+temperature);
-    //     data.datasets[1].data.push(""+moisture);
-    // });
 
     const dataTemperature = {
         labels: labels,
