@@ -7,7 +7,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         let data: string[] = [];
 
-        data = await db.collection('environments').find({}).limit(24).toArray();
+        let currentDate = new Date();
+        let year = currentDate.getFullYear();
+        let month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+        let day = ('0' + currentDate.getDate()).slice(-2);
+        let formatedDate = year + '-' + month + '-' + day;
+
+        data = await db.collection('environments').aggregate([{
+            $match: {
+                date: { $eq: formatedDate },
+            }
+        }]).toArray();
 
         return res.status(200).json(data);
     } catch (e: any) {
