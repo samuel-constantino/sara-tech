@@ -67,8 +67,12 @@ export default function Environment(props: Props) {
         ]
     };
 
+    let currentEnvironment = environments[environments.length-1];
+    console.log(currentEnvironment);
     environments.forEach(({time, temperature, moisture}) => {
-        data.labels.push(""+time);
+
+        let timeData = ""+time[0]+""+time[1];
+        data.labels.push(timeData);
         data.datasets[0].data.push(""+temperature);
         data.datasets[1].data.push(""+moisture);
     });
@@ -83,7 +87,17 @@ export default function Environment(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <Line data={data} options={{ maintainAspectRatio: false }} />
+                <div className="flex gap-2">
+                    <span>Temperatura:</span>
+                    <span>{currentEnvironment.temperature}ºC</span>
+                </div>
+                <div className="flex gap-2">
+                    <span>Umidade:</span>
+                    <span>{currentEnvironment.moisture}ºC</span>
+                </div>
+                <div>
+                    <Line data={data} options={{ maintainAspectRatio: false }} />
+                </div>
             </main>
         </>
     )
