@@ -83,7 +83,7 @@ export default function Environment(props: Props) {
         dataMoisture.datasets[0].data.push(""+moisture);
     });
 
-    const currentEnvironment = environments[0];
+    const currentEnvironment = environments[environments.length-1];
     const temperature = currentEnvironment ? currentEnvironment.temperature : "";
     const moisture = currentEnvironment ? currentEnvironment.moisture : "";
 
