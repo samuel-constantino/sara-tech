@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-    setTime: (event: string) => void,
+    setTime: Function,
     defaultValue: string,
 }
 

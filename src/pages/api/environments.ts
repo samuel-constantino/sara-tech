@@ -1,5 +1,6 @@
 import {connectToDatabase} from '@/config/mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { datetime } from '@/services'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
@@ -7,15 +8,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         let data: string[] = [];
 
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
+        const { date } = datetime();
 
         data = await db.collection('environments').aggregate([{
             $match: {
-                date: { $eq: formattedDate },
+                date: { $eq: date },
             }
         }]).toArray();
 

@@ -10,8 +10,8 @@ const Toggle = (props: any) => {
     
     return (
         <>
-            <div className="flex justify-between items-center">
-                <span>{label}: </span>
+            <div className="flex justify-between items-center font-bold">
+                <h1 className='text-xl'>{label}: </h1>
                 <div className="flex">
                     <label className="inline-flex relative items-center cursor-pointer">
                         <input

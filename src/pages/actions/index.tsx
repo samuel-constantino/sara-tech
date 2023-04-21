@@ -1,76 +1,69 @@
 import Header from "@/components/Header/Header";
-import { api } from "@/services"
+import { api, datetime } from "@/services"
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
-import Toggle from "@/components/Toggle/Toggle";
-import TimeInput from "@/components/TimeInput/TimeInput";
+import { Action } from "@/components";
 
-type Action = {
+type ActionProp = {
     _id: string,
-    action1: {
-        toggle: Number,
-        time1: string,
-        time2: string,
-        time3: string,
-        interval: string,
-    },
-    action2: {
-        toggle: Number,
-        time1: string,
-        time2: string,
-        time3: string,
-    },
-    action3: {
-        toggle: Number,
-        time1: string,
-        time2: string,
-        time3: string,
-    },
+    action1: ActionObject,
+    action2: ActionObject,
+    action3: ActionObject,
     date: string,
     time: string,
 }
 
-type Props = {
-    action: Action,
+type ActionObject = {
+    toggle: Boolean,
+    time1: string,
+    time2: string,
+    time3: string,
+    interval: string,
 }
 
-export default function Environment(props: Props) {
-    const { action } = props;
-    
-    const [toggle1, setToggle1] = useState(!!action.action1.toggle);
+type Props = {
+    action: ActionProp,
+}
 
-    const [time1, setTime1] = useState(action.action1.time1);
-    const [time2, setTime2] = useState(action.action1.time2);
-    const [time3, setTime3] = useState(action.action1.time3);
-    const [interval1, setInterval1] = useState("");
+export default function Actions(props: Props) {
+    const { action } = props;
+    // console.log(action);
+    const [action1, setAction1] = useState(action.action1);
+    const [action2, setAction2] = useState(action.action2);
+    const [action3, setAction3] = useState(action.action3);
+    // console.log(action1.toggle, action2.toggle, action3.toggle);
 
     const onSubmit = async () => {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const formattedTime = `${hours}:${minutes}`;
+        const { date, time } = datetime();
 
         const payload = {
             action1: {
-                toggle: toggle1,
-                time1: time1,
-                time2: time2,
-                time3: time3,
-                interval: interval1,
+                toggle: action1.toggle,
+                time1: action1.time1,
+                time2: action1.time2,
+                time3: action1.time3,
+                interval: action1.interval,
             },
-            date: formattedDate,
-            time: formattedTime,
+            action2: {
+                toggle: action2.toggle,
+                time1: action2.time1,
+                time2: action2.time2,
+                time3: action2.time3,
+                interval: action2.interval,
+            },
+            action3: {
+                toggle: action3.toggle,
+                time1: action3.time1,
+                time2: action3.time2,
+                time3: action3.time3,
+                interval: action3.interval,
+            },
+            date: date,
+            time: time,
         }
 
         try {
             const url = "/api/mqtt/actions";
-            console.log(payload);
             const { data } = await api.post(url, payload);
             console.log(data);
         } catch (error) {
@@ -88,26 +81,25 @@ export default function Environment(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <div className="flex flex-col gap-4">
-                    <div className="flex flex-col gap-4">
-                        <Toggle
-                            label={'Motor 1'}
-                            target={toggle1}
-                            setTarget={() => setToggle1(!toggle1)}
-                            disabled={false}
-                        />
-                        <div className="w-100 flex justify-between gap-2">
-                            <TimeInput setTime={setTime1} defaultValue={action.action1.time1 || "00:00"} />
-                            <TimeInput setTime={setTime2} defaultValue={action.action1.time2 || "00:00"}/>
-                            <TimeInput setTime={setTime3} defaultValue={action.action1.time3 || "00:00"}/>
-                        </div>
-                        <div className="w-100 flex justify-between gap-2">
-                            <span>Intervalo:</span>
-                            <TimeInput setTime={setInterval1} defaultValue={action.action1.interval || "00:00"}/>
-                        </div>
-                    </div>
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={onSubmit}>Salvar</button>
-                </div>
+                <Action
+                    label={"Motor 1"}
+                    action={action1}
+                    setAction={setAction1}
+                    onSubmit={onSubmit}
+                />
+                <Action
+                    label={"Motor 2"}
+                    action={action2}
+                    setAction={setAction2}
+                    onSubmit={onSubmit}
+                />
+                <Action
+                    label={"Motor 3"}
+                    action={action3}
+                    setAction={setAction3}
+                    onSubmit={onSubmit}
+                />
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => onSubmit()}>Salvar</button>
             </main>
         </>
     )
