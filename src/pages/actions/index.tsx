@@ -37,7 +37,7 @@ type Props = {
 export default function Environment(props: Props) {
     const { action } = props;
     
-    const [toggle1, setToggle1] = useState(action.action1.toggle);
+    const [toggle1, setToggle1] = useState(!!action.action1.toggle);
 
     const [time1, setTime1] = useState(action.action1.time1);
     const [time2, setTime2] = useState(action.action1.time2);
