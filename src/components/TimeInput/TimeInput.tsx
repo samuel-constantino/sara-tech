@@ -16,6 +16,7 @@ function TimeInput(props: Props) {
                 name="time-input"
                 defaultValue={defaultValue}
                 onChange={(e) => setTime(e.target.value)}
+                className='w-20'
             />
         </div>
     );
