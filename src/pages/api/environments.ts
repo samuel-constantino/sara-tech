@@ -7,15 +7,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         let data: string[] = [];
 
-        let currentDate = new Date();
-        let year = currentDate.getFullYear();
-        let month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-        let day = ('0' + currentDate.getDate()).slice(-2);
-        let formatedDate = year + '-' + month + '-' + day;
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
 
         data = await db.collection('environments').aggregate([{
             $match: {
-                date: { $eq: formatedDate },
+                date: { $eq: formattedDate },
             }
         }]).toArray();
 
