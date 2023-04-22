@@ -38,21 +38,21 @@ export default function Actions(props: Props) {
 
         const payload = {
             ac1: {
-                to: action1.toggle,
+                to: action1.toggle ? "1" : "0",
                 t1: action1.time1,
                 t2: action1.time2,
                 t3: action1.time3,
                 i: action1.interval,
             },
             ac2: {
-                to: action2.toggle,
+                to: action2.toggle ? "1" : "0",
                 t1: action2.time1,
                 t2: action2.time2,
                 t3: action2.time3,
                 i: action2.interval,
             },
             ac3: {
-                to: action3.toggle,
+                to: action3.toggle ? "1" : "0",
                 t1: action3.time1,
                 t2: action3.time2,
                 t3: action3.time3,
