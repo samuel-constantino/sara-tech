@@ -37,26 +37,26 @@ export default function Actions(props: Props) {
         const { date, time } = datetime();
 
         const payload = {
-            action1: {
-                toggle: action1.toggle,
-                time1: action1.time1,
-                time2: action1.time2,
-                time3: action1.time3,
-                interval: action1.interval,
+            ac1: {
+                to: action1.toggle,
+                t1: action1.time1,
+                t2: action1.time2,
+                t3: action1.time3,
+                i: action1.interval,
             },
-            action2: {
-                toggle: action2.toggle,
-                time1: action2.time1,
-                time2: action2.time2,
-                time3: action2.time3,
-                interval: action2.interval,
+            ac2: {
+                to: action2.toggle,
+                t1: action2.time1,
+                t2: action2.time2,
+                t3: action2.time3,
+                i: action2.interval,
             },
-            action3: {
-                toggle: action3.toggle,
-                time1: action3.time1,
-                time2: action3.time2,
-                time3: action3.time3,
-                interval: action3.interval,
+            ac3: {
+                to: action3.toggle,
+                t1: action3.time1,
+                t2: action3.time2,
+                t3: action3.time3,
+                i: action3.interval,
             },
             date: date,
             time: time,
