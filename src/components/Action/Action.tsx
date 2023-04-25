@@ -6,7 +6,6 @@ type ActionProp = {
     label: string,
     action: ActionObject,
     setAction: Function,
-    onSubmit: Function,
 }
 
 type ActionObject = {
@@ -47,7 +46,7 @@ const Action = (props: ActionProp) => {
                 </div>
                 <div className="w-100 flex justify-between gap-2">
                     <span>Intervalo:</span>
-                    <TimeInput setTime={setInterval} defaultValue={action.interval || "00:00"}/>
+                    <TimeInput setTime={(value: string) => handleAction({interval: value})} defaultValue={action.interval || "00:00"}/>
                 </div>
             </div>
         </div>

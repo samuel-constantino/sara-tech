@@ -85,19 +85,16 @@ export default function Actions(props: Props) {
                     label={"Motor 1"}
                     action={action1}
                     setAction={setAction1}
-                    onSubmit={onSubmit}
                 />
                 <Action
                     label={"Motor 2"}
                     action={action2}
                     setAction={setAction2}
-                    onSubmit={onSubmit}
                 />
                 <Action
                     label={"Motor 3"}
                     action={action3}
                     setAction={setAction3}
-                    onSubmit={onSubmit}
                 />
                 <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => onSubmit()}>Salvar</button>
             </main>
