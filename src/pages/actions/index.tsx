@@ -27,11 +27,10 @@ type Props = {
 
 export default function Actions(props: Props) {
     const { action } = props;
-    // console.log(action);
+    
     const [action1, setAction1] = useState(action.action1);
     const [action2, setAction2] = useState(action.action2);
     const [action3, setAction3] = useState(action.action3);
-    // console.log(action1.toggle, action2.toggle, action3.toggle);
 
     const onSubmit = async () => {
         const { date, time } = datetime();
@@ -105,7 +104,6 @@ export default function Actions(props: Props) {
 export async function getServerSideProps() {
     try {
         const { data } = await api.get('/api/mongo/actions');
-
         return {
             props: { action: data}
         };
