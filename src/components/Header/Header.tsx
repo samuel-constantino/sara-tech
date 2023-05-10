@@ -9,6 +9,7 @@ interface link {
 
 const links: link[] = [
     {label: "Irrigação", href: "/irrigation"},
+    {label: "Motores", href: "/actions"},
     {label: "Ambiente", href: "/environment"},
 ];
 

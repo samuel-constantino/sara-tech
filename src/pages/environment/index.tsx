@@ -42,12 +42,12 @@ type Props = {
 
 export default function Environment(props: Props) {
     const { environments } = props;
-    
+    console.log(environments);
     const labels: string[] = [];
     const temperatures: string[] = [];
     const moistures: string[] = [];
 
-    const data = {
+    const dataTemperature = {
         labels: labels,
         datasets: [
             {
@@ -56,7 +56,13 @@ export default function Environment(props: Props) {
                 fill: false,
                 backgroundColor: "rgba(47, 97, 68, 0.3)",
                 borderColor: 'rgba(47, 97, 68, 1)',
-            },
+            }
+        ]
+    };
+
+    const dataMoisture = {
+        labels: labels,
+        datasets: [
             {
                 label: 'Umidade',
                 data: moistures,
@@ -66,12 +72,20 @@ export default function Environment(props: Props) {
             },
         ]
     };
-
+    
     environments.forEach(({time, temperature, moisture}) => {
-        data.labels.push(""+time);
-        data.datasets[0].data.push(""+temperature);
-        data.datasets[1].data.push(""+moisture);
+
+        let timeData = ""+time[0]+""+time[1];
+
+        dataMoisture.labels.push(timeData);
+        
+        dataTemperature.datasets[0].data.push(""+temperature);
+        dataMoisture.datasets[0].data.push(""+moisture);
     });
+
+    const currentEnvironment = environments[environments.length-1];
+    const temperature = currentEnvironment ? currentEnvironment.temperature : "";
+    const moisture = currentEnvironment ? currentEnvironment.moisture : "";
 
     return (
         <>
@@ -83,7 +97,24 @@ export default function Environment(props: Props) {
             </Head>
             <Header />
             <main className='m-4 flex flex-col gap-4'>
-                <Line data={data} options={{ maintainAspectRatio: false }} />
+                <div>
+                    <div className="flex gap-2">
+                        <span>Temperatura:</span>
+                        <span>{temperature} ºC</span>
+                    </div>
+                    <div>
+                        <Line height={190} data={dataTemperature} options={{ maintainAspectRatio: false }} />
+                    </div>
+                </div>
+                <div>
+                    <div className="flex gap-2">
+                        <span>Umidade:</span>
+                        <span>{moisture}%</span>
+                    </div>
+                    <div>
+                        <Line height={190} data={dataMoisture} options={{ maintainAspectRatio: false }} />
+                    </div>
+                </div>
             </main>
         </>
     )
