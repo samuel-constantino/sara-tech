@@ -68,8 +68,8 @@ const Header = () => {
                     <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? 'block' : 'hidden'}`}>
                         <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                             {links.map((link, index) => (
-                                <li className="text-white">
-                                    <Link key={index} href={""+link.href} className="text-18px font-medium">
+                                <li className="text-white" key={index}>
+                                    <Link href={""+link.href} className="text-18px font-medium">
                                         {link.label}
                                     </Link>
                                 </li>
